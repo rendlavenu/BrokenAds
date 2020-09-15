@@ -41,11 +41,10 @@ fi
 
 echo "********************************* Initiating fresh build ********************************************"
 
+echo "# Host file is created by $DEV at $(date)" > $HOSTSFILE
 echo "Fetching  host records from github  - $GITHUBUSER"
 wget -q $URLRAWBASE/$HOSTSFILE -O - | sed -e '/^$/d' -e '/^[ \t]*#/d' -e 's/#.*$//' -e 's/ *$//' -e '/0\.0\.0\.0$/d' | sort -k2 | uniq >> $HOSTSFILE
 
-
-echo "# Host file is created by $DEV at $(date)" > $HOSTSFILE
 echo  "Creating binary files..."
 
 cat <<- EOF > $META_DIR/update-binary
